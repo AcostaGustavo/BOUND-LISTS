@@ -114,6 +114,55 @@ public class DoubleLinkedList<T>
         {
             if (current.Data!.Equals(data))
             {
+                // ELIMINAR CABEZA
+                if (current == head)
+                {
+                    head = current.Next;
+
+                    if (head != null)
+                    {
+                        head.Previous = null;
+                    }
+                    else
+                    {
+                        tail = null;
+                    }
+                }
+
+                // ELIMINAR COLA
+                else if (current == tail)
+                {
+                    tail = current.Previous;
+
+                    if (tail != null)
+                    {
+                        tail.Next = null;
+                    }
+                }
+
+                // ELIMINAR EN MEDIO
+                else
+                {
+                    current.Previous!.Next = current.Next;
+                    current.Next!.Previous = current.Previous;
+                }
+
+                return;
+            }
+
+            current = current.Next;
+        }
+    }
+    public void RemoveAll(T data)
+    {
+        var current = head;
+
+        while (current != null)
+        {
+            var nextNode = current.Next;
+
+            if (current.Data!.Equals(data))
+            {
                 // SI ES EL PRIMER NODO
                 if (current == head)
                 {
@@ -127,12 +176,10 @@ public class DoubleLinkedList<T>
                     {
                         tail = null;
                     }
-
-                    return;
                 }
 
                 // SI ES EL ÚLTIMO
-                if (current == tail)
+                else if (current == tail)
                 {
                     tail = tail.Previous;
 
@@ -140,25 +187,17 @@ public class DoubleLinkedList<T>
                     {
                         tail.Next = null;
                     }
-
-                    return;
                 }
 
                 // SI ESTÁ EN EL MEDIO
-                current.Previous!.Next = current.Next;
-                current.Next!.Previous = current.Previous;
-
-                return;
+                else
+                {
+                    current.Previous!.Next = current.Next;
+                    current.Next!.Previous = current.Previous;
+                }
             }
 
-            current = current.Next;
-        }
-    }
-    public void RemoveAll(T data)
-    {
-        while (Exists(data))
-        {
-            Remove(data);
+            current = nextNode;
         }
     }
     public void SortDescending()
