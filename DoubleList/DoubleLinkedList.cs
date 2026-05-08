@@ -129,7 +129,7 @@ public class DoubleLinkedList<T>
                     }
                 }
 
-                // ELIMINAR COLA
+                // ELIMINAR LA COLA
                 else if (current == tail)
                 {
                     tail = current.Previous;
@@ -140,7 +140,7 @@ public class DoubleLinkedList<T>
                     }
                 }
 
-                // ELIMINAR EN MEDIO
+                // ELIMINAR EN MEDIOL
                 else
                 {
                     current.Previous!.Next = current.Next;
