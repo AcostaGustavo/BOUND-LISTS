@@ -252,7 +252,6 @@ public class DoubleLinkedList<T>
             current = current.Next;
         }
 
-
         int maxFrequency = frequencies.Values.Max();
 
         var modes = frequencies

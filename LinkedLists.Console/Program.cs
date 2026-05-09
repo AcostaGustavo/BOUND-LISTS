@@ -1,6 +1,5 @@
 ﻿using DoubleList;
 
-
 var list = new DoubleLinkedList<string>();
 
 string option;
