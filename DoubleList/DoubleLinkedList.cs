@@ -1,5 +1,6 @@
 ﻿using Shared;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DoubleList;
 
@@ -13,7 +14,6 @@ public class DoubleLinkedList<T>
     {
         var newNode = new Node<T>(data);
 
-        // LISTA VACÍA
         if (head == null)
         {
             head = newNode;
@@ -23,7 +23,6 @@ public class DoubleLinkedList<T>
 
         var current = head;
 
-        // INSERTAR AL INICIO
         if (data.CompareTo(head.Data) < 0)
         {
             newNode.Next = head;
@@ -33,14 +32,12 @@ public class DoubleLinkedList<T>
             return;
         }
 
-        // BUSCAR POSICIÓN
         while (current.Next != null &&
                current.Next.Data.CompareTo(data) < 0)
         {
             current = current.Next;
         }
 
-        // INSERTAR AL FINAL
         if (current.Next == null)
         {
             current.Next = newNode;
@@ -50,7 +47,6 @@ public class DoubleLinkedList<T>
             return;
         }
 
-        // INSERTAR EN EL MEDIO
         newNode.Next = current.Next;
         newNode.Previous = current;
 
@@ -114,7 +110,6 @@ public class DoubleLinkedList<T>
         {
             if (current.Data!.Equals(data))
             {
-                // ELIMINAR CABEZA
                 if (current == head)
                 {
                     head = current.Next;
@@ -129,7 +124,6 @@ public class DoubleLinkedList<T>
                     }
                 }
 
-                // ELIMINAR LA COLA
                 else if (current == tail)
                 {
                     tail = current.Previous;
@@ -140,7 +134,6 @@ public class DoubleLinkedList<T>
                     }
                 }
 
-                // ELIMINAR EN MEDIOL
                 else
                 {
                     current.Previous!.Next = current.Next;
@@ -163,7 +156,7 @@ public class DoubleLinkedList<T>
 
             if (current.Data!.Equals(data))
             {
-                // SI ES EL PRIMER NODO
+
                 if (current == head)
                 {
                     head = head.Next;
@@ -178,7 +171,6 @@ public class DoubleLinkedList<T>
                     }
                 }
 
-                // SI ES EL ÚLTIMO
                 else if (current == tail)
                 {
                     tail = tail.Previous;
@@ -189,7 +181,6 @@ public class DoubleLinkedList<T>
                     }
                 }
 
-                // SI ESTÁ EN EL MEDIO
                 else
                 {
                     current.Previous!.Next = current.Next;
@@ -219,7 +210,7 @@ public class DoubleLinkedList<T>
             {
                 if (current.Data.CompareTo(current.Next.Data) < 0)
                 {
-                    // INTERCAMBIAR DATOS
+
                     T temp = current.Data;
 
                     current.Data = current.Next.Data;
@@ -247,7 +238,6 @@ public class DoubleLinkedList<T>
 
         var current = head;
 
-        // CONTAR FRECUENCIAS
         while (current != null)
         {
             if (frequencies.ContainsKey(current.Data))
@@ -262,19 +252,16 @@ public class DoubleLinkedList<T>
             current = current.Next;
         }
 
-        // ENCONTRAR FRECUENCIA MÁXIMA
+
         int maxFrequency = frequencies.Values.Max();
 
-        Console.WriteLine("Mode(s):");
+        var modes = frequencies
+            .Where(x => x.Value == maxFrequency)
+            .Select(x => x.Key);
 
-        // MOSTRAR MODAS
-        foreach (var item in frequencies)
-        {
-            if (item.Value == maxFrequency)
-            {
-                Console.WriteLine($"{item.Key} -> {item.Value} times");
-            }
-        }
+        Console.WriteLine("The mode(s) are:");
+
+        Console.WriteLine(string.Join(", ", modes));
     }
 
     public void ShowGraph()
@@ -289,7 +276,6 @@ public class DoubleLinkedList<T>
 
         var current = head;
 
-        // CONTAR FRECUENCIAS
         while (current != null)
         {
             if (frequencies.ContainsKey(current.Data))
@@ -306,7 +292,7 @@ public class DoubleLinkedList<T>
 
         Console.WriteLine("\nGRAPH:");
 
-        foreach (var item in frequencies)
+        foreach (var item in frequencies.OrderBy(x => x.Key))
         {
             Console.Write($"{item.Key} ");
 

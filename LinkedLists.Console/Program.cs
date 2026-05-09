@@ -1,26 +1,26 @@
 ﻿using DoubleList;
-using System.Collections;
 
-var list = new DoubleLinkedList<int>();
+
+var list = new DoubleLinkedList<string>();
 
 string option;
-int value;
+string value;
 
 do
 {
     Console.WriteLine("\n===== MENU =====");
-    Console.WriteLine("1. Adicionar");
-    Console.WriteLine("2. Mostrar hacia adelante");
-    Console.WriteLine("3. Mostrar hacia atrás");
-    Console.WriteLine("4. Ordenar descendentemente");
-    Console.WriteLine("5. Mostrar moda(s)");
-    Console.WriteLine("6. Mostrar gráfico");
-    Console.WriteLine("7. Existe");
-    Console.WriteLine("8. Eliminar una ocurrencia");
-    Console.WriteLine("9. Eliminar todas las ocurrencias");
-    Console.WriteLine("0. Salir");
+    Console.WriteLine("1. Add");
+    Console.WriteLine("2. Show forward");
+    Console.WriteLine("3. Show back");
+    Console.WriteLine("4. Sort descending");
+    Console.WriteLine("5. Show mode(s)");
+    Console.WriteLine("6. Show graph");
+    Console.WriteLine("7. Exists");
+    Console.WriteLine("8. Delete an occurrence");
+    Console.WriteLine("9. Remove all occurrences");
+    Console.WriteLine("0. Exit");
 
-    Console.Write("Option: ");
+    Console.Write("Select the option: ");
     option = Console.ReadLine() ?? "";
 
     switch (option)
@@ -28,7 +28,7 @@ do
         case "1":
 
             Console.Write("Enter value: ");
-            value = int.Parse(Console.ReadLine()!);
+            value = Console.ReadLine() ?? "";
 
             list.InsertOrdered(value);
 
@@ -52,6 +52,8 @@ do
 
             Console.WriteLine("List sorted descending.");
 
+            list.ShowForward();
+
             break;
 
         case "5":
@@ -69,7 +71,7 @@ do
         case "7":
 
             Console.Write("Enter value: ");
-            value = int.Parse(Console.ReadLine()!);
+            value = value = Console.ReadLine() ?? "";
 
             bool exists = list.Exists(value);
 
@@ -87,22 +89,36 @@ do
         case "8":
 
             Console.Write("Enter value: ");
-            value = int.Parse(Console.ReadLine()!);
+            value = Console.ReadLine() ?? "";
 
-            list.Remove(value);
+            if (list.Exists(value))
+            {
+                list.Remove(value);
 
-            Console.WriteLine("Element removed.");
+                Console.WriteLine("Element removed.");
+            }
+            else
+            {
+                Console.WriteLine("Does not exist.");
+            }
 
             break;
 
         case "9":
 
             Console.Write("Enter value: ");
-            value = int.Parse(Console.ReadLine()!);
+            value = Console.ReadLine() ?? "";
 
-            list.RemoveAll(value);
+            if (list.Exists(value))
+            {
+                list.RemoveAll(value);
 
-            Console.WriteLine("All occurrences removed.");
+                Console.WriteLine("All occurrences removed.");
+            }
+            else
+            {
+                Console.WriteLine("Does not exist.");
+            }
 
             break;
     }
